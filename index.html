@@ -17,7 +17,7 @@
     header {
       background: linear-gradient(135deg, #1a1f2e 0%, #16213e 100%);
       border-bottom: 1px solid #2d3748;
-      padding: 20px 16px;
+      padding: 16px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -28,193 +28,138 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    header h1 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #e2e8f0;
-      letter-spacing: 0.05em;
-    }
-
+    header h1 { font-size: 1.2rem; font-weight: 700; }
     header .badge {
-      background: #3182ce;
-      color: white;
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-weight: 600;
+      background: #3182ce; color: white;
+      font-size: 0.68rem; padding: 2px 8px;
+      border-radius: 99px; font-weight: 600;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 16px 80px;
-    }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 14px 80px; }
 
-    /* 日付セクション */
-    .date-section {
-      margin-top: 24px;
-    }
+    /* ── 日付セクション ── */
+    .date-section { margin-top: 20px; }
 
     .date-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      padding: 14px 16px;
-      background: #1a1f2e;
-      border: 1px solid #2d3748;
-      border-radius: 12px;
-      margin-bottom: 4px;
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer; padding: 13px 14px;
+      background: #1a1f2e; border: 1px solid #2d3748;
+      border-radius: 12px; margin-bottom: 4px;
       user-select: none;
     }
-
     .date-header:hover { background: #1e2433; }
-
-    .date-header .date-text {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #90cdf4;
-      flex: 1;
+    .date-text { font-size: 1rem; font-weight: 700; color: #90cdf4; flex: 1; }
+    .count-badge {
+      background: #2d3748; color: #a0aec0;
+      font-size: 0.68rem; padding: 2px 8px; border-radius: 99px;
     }
-
-    .date-header .toggle-icon {
-      color: #718096;
-      font-size: 0.85rem;
-      transition: transform 0.2s;
-    }
-
+    .toggle-icon { color: #718096; font-size: 0.8rem; transition: transform 0.2s; }
     .date-header.collapsed .toggle-icon { transform: rotate(-90deg); }
-
-    .date-header .count-badge {
-      background: #2d3748;
-      color: #a0aec0;
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 99px;
-    }
-
-    .date-content { display: block; }
     .date-content.hidden { display: none; }
 
-    /* タブ */
-    .tabs {
-      display: flex;
-      gap: 4px;
-      padding: 12px 0 8px;
+    /* ── メインタブ（海外/国内） ── */
+    .main-tabs {
+      display: flex; gap: 4px; padding: 10px 0 6px;
     }
-
-    .tab-btn {
-      flex: 1;
-      padding: 9px 4px;
-      background: #1a1f2e;
-      border: 1px solid #2d3748;
-      border-radius: 8px;
-      color: #718096;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s;
+    .main-tab-btn {
+      flex: 1; padding: 10px 4px;
+      background: #1a1f2e; border: 1px solid #2d3748;
+      border-radius: 8px; color: #718096;
+      font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; text-align: center; transition: all 0.15s;
     }
-
-    .tab-btn.active {
-      background: #2b4a7a;
-      border-color: #3182ce;
-      color: #90cdf4;
+    .main-tab-btn.active {
+      background: #2b4a7a; border-color: #3182ce; color: #90cdf4;
     }
+    .main-tab-panel { display: none; }
+    .main-tab-panel.active { display: block; }
 
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
+    /* ── 国内サブタブ ── */
+    .sub-tabs {
+      display: flex; gap: 3px;
+      padding: 8px 0 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .sub-tabs::-webkit-scrollbar { display: none; }
+    .sub-tab-btn {
+      flex-shrink: 0;
+      padding: 7px 12px;
+      background: #161b27; border: 1px solid #2d3748;
+      border-radius: 20px; color: #718096;
+      font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; white-space: nowrap; transition: all 0.15s;
+    }
+    .sub-tab-btn.active {
+      background: #1c3a2a; border-color: #38a169; color: #68d391;
+    }
+    .sub-tab-panel { display: none; }
+    .sub-tab-panel.active { display: block; }
 
-    /* ニュースカード */
+    /* ── ニュースカード ── */
     .news-card {
-      background: #1a1f2e;
-      border: 1px solid #2d3748;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 10px;
-      transition: border-color 0.15s;
+      background: #1a1f2e; border: 1px solid #2d3748;
+      border-radius: 12px; padding: 14px;
+      margin-bottom: 10px; transition: border-color 0.15s;
     }
-
     .news-card:hover { border-color: #4a5568; }
 
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
+    .card-meta { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
     .source-tag {
-      font-size: 0.68rem;
-      padding: 2px 7px;
-      border-radius: 99px;
-      font-weight: 600;
+      font-size: 0.66rem; padding: 2px 7px;
+      border-radius: 99px; font-weight: 700;
     }
-
-    .tag-media  { background: #1a365d; color: #90cdf4; }
-    .tag-sns    { background: #1c3a2a; color: #68d391; }
-    .tag-hot    { background: #3d1a1a; color: #fc8181; }
-    .tag-tech   { background: #2d1f4a; color: #b794f4; }
+    .tag-hot   { background: #3d1a1a; color: #fc8181; }
+    .tag-sns   { background: #1c3a2a; color: #68d391; }
+    .tag-media { background: #1a365d; color: #90cdf4; }
+    .tag-tech  { background: #2d1f4a; color: #b794f4; }
+    .tag-yt    { background: #3d1a1a; color: #fc8181; }
+    .tag-note  { background: #2d2a1a; color: #f6e05e; }
 
     .card-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #e2e8f0;
-      line-height: 1.5;
-      margin-bottom: 8px;
+      font-size: 0.95rem; font-weight: 700;
+      color: #e2e8f0; line-height: 1.5; margin-bottom: 10px;
     }
-
-    .card-title a {
-      color: #90cdf4;
-      text-decoration: none;
-    }
-
+    .card-title a { color: #90cdf4; text-decoration: none; }
     .card-title a:hover { text-decoration: underline; }
 
-    .card-summary {
-      font-size: 0.82rem;
-      color: #a0aec0;
-      line-height: 1.65;
-      border-left: 2px solid #2d3748;
-      padding-left: 10px;
+    /* カード内セクション */
+    .card-section { margin-bottom: 8px; }
+    .card-section:last-child { margin-bottom: 0; }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 700;
+      margin-bottom: 3px; display: block;
     }
+    .label-point   { color: #fc8181; }
+    .label-detail  { color: #90cdf4; }
+    .label-meaning { color: #68d391; }
+    .label-compare { color: #b794f4; }
+
+    .section-body {
+      font-size: 0.82rem; color: #a0aec0;
+      line-height: 1.7;
+      border-left: 2px solid #2d3748;
+      padding-left: 9px;
+    }
+    .section-body a { color: #90cdf4; text-decoration: none; }
+    .section-body a:hover { text-decoration: underline; }
 
     .card-source {
-      margin-top: 8px;
-      font-size: 0.75rem;
-      color: #4a5568;
+      margin-top: 8px; font-size: 0.72rem; color: #4a5568;
     }
-
-    .card-source a {
-      color: #4a5568;
-      text-decoration: none;
-    }
-
+    .card-source a { color: #4a5568; text-decoration: none; }
     .card-source a:hover { color: #718096; }
 
-    /* カテゴリラベル */
-    .category-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #4a5568;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 16px 0 8px;
-    }
+    .empty { color: #4a5568; font-size: 0.85rem; padding: 24px 0; text-align: center; }
 
-    /* 空メッセージ */
-    .empty { color: #4a5568; font-size: 0.85rem; padding: 20px 0; text-align: center; }
-
-    /* フッター */
     footer {
-      text-align: center;
-      padding: 20px;
-      color: #4a5568;
-      font-size: 0.75rem;
+      text-align: center; padding: 20px;
+      color: #4a5568; font-size: 0.72rem;
     }
   </style>
 </head>
@@ -232,94 +177,160 @@
 <div class="date-section" data-date="2026-04-06">
   <div class="date-header" onclick="toggleDate('2026-04-06')">
     <span class="date-text">📅 2026-04-06</span>
-    <span class="count-badge">10件</span>
+    <span class="count-badge">9件</span>
     <span class="toggle-icon">▼</span>
   </div>
   <div class="date-content">
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="overseas" data-date="2026-04-06" onclick="switchTab('2026-04-06','overseas')">🌏 海外</button>
-      <button class="tab-btn" data-tab="domestic" data-date="2026-04-06" onclick="switchTab('2026-04-06','domestic')">🇯🇵 国内</button>
+    <div class="main-tabs">
+      <button class="main-tab-btn active" data-tab="overseas" onclick="switchMain('2026-04-06','overseas')">🌏 海外</button>
+      <button class="main-tab-btn" data-tab="domestic" onclick="switchMain('2026-04-06','domestic')">🇯🇵 国内</button>
     </div>
-    <div class="tab-panel overseas active"><div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-hot">🔥 注目</span>
-  </div>
-  <div class="card-title">① <a href="https://blog.mean.ceo/new-ai-model-releases-news-april-2026/" target="_blank" rel="noopener">DeepSeek V4リリース — 1兆パラメータMoEモデルをオープンウェイトで公開</a></div>
-  <div class='card-summary'>【要約】DeepSeekが1兆パラメータのMixture-of-Experts（MoE）モデルをApache 2.0ライセンスで完全公開。米国フロンティアモデル（Claude Opus 4.6等）と競合する性能を持ちながら、学習コストはわずか約520万ドルと推定される。中国勢の低コスト高性能モデルが再びAI業界に衝撃を与えた。</div>
-  <div class='card-source'>ソース: <a href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">llm-stats.com</a></div>
+    <div class="main-tab-panel overseas active"><div class="news-card">
+  <div class="card-meta"><span class="source-tag tag-hot">🔥 注目</span></div>
+  <div class="card-title"><a href="https://blog.mean.ceo/new-ai-model-releases-news-april-2026/" target="_blank" rel="noopener">DeepSeek V4リリース — 1兆パラメータMoEモデルをオープンウェイトで公開</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">中国DeepSeekが1兆パラメータのMoEモデルをApache 2.0で完全公開。学習コスト約520万ドル。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">DeepSeekはMixture-of-Experts（MoE）という設計を採用している。MoEとは全パラメータを同時に使わず、タスクに応じて必要な部分だけを起動する仕組みで、実際の計算コストを大幅に抑えられる。今回公開されたV4は1兆パラメータという規模ながら、学習コストがわずか約520万ドルと報告されており、GPT-5系モデルの推定コストの数十分の一とされる。ベンチマーク性能はClaude Opus 4.6やGPT-5.2と競合する水準を示している。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">大企業の巨大予算なしでも最前線のAIが作れる時代が加速。AIサービスの価格競争がさらに激化し、ユーザーには恩恵が生まれる。</div>
+</div><div class="card-section">
+  <span class="section-label label-compare">⚖️ 比較</span>
+  <div class="section-body">GPT-5.4（OpenAI）は性能は同等以上だが非公開・高コスト。Llama 4（Meta）も同じくオープンだが英語特化。DeepSeek V4はコスト最安水準＋完全オープンが強み。ただし日本語性能は独立した検証が必要。</div>
+</div>
 </div>
 <div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-hot">🔥 注目</span>
-  </div>
-  <div class="card-title">② <a href="https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/" target="_blank" rel="noopener">Microsoftが独自の3つの基盤モデルを発表 — テキスト・音声・画像を統合</a></div>
-  <div class='card-summary'>【要約】MicrosoftがOpenAIへの依存を減らす形で、テキスト・音声・画像を生成できる独自基盤モデル3種を発表。これによりMicrosoftはAIモデル開発においてOpenAI・Google・Anthropicと直接競合する立場になった。</div>
-  <div class='card-source'>ソース: <a href="https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/" target="_blank" rel="noopener">TechCrunch</a></div>
+  <div class="card-meta"><span class="source-tag tag-hot">🔥 注目</span></div>
+  <div class="card-title"><a href="https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/" target="_blank" rel="noopener">Microsoftが独自の3つの基盤モデルを発表 — テキスト・音声・画像を統合</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">MicrosoftがOpenAIに依存しない独自基盤モデル3種（テキスト・音声・画像）を発表。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">これまでMicrosoftはAIモデルの中核をOpenAIのGPTシリーズに依存してきたが、今回初めて自社開発の基盤モデルを発表した。テキスト生成・音声合成・画像生成の3分野に対応し、Azure上で企業向けに提供される予定。OpenAIとの関係を維持しつつも、独自路線を強めることで競争力とリスク分散を図る戦略とみられる。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">Microsoft製品（Word・Teams・Copilot等）が自社モデルで動く可能性が高まり、OpenAI依存のリスクが低下。企業向けAIサービスの選択肢が広がる。</div>
+</div><div class="card-section">
+  <span class="section-label label-compare">⚖️ 比較</span>
+  <div class="section-body">OpenAI GPT-5系と直接競合。Googleのgeminiシリーズ・Anthropic Claudeとも競争。MSは既存のOffice・Azure顧客基盤が強みで、純粋な性能競争よりもエコシステム勝負になる見通し。</div>
+</div>
 </div>
 <div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-hot">🔥 注目</span>
-  </div>
-  <div class="card-title">③ <a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/" target="_blank" rel="noopener">Google Gemma 4リリース — 推論・エージェント特化のオープンモデル</a></div>
-  <div class='card-summary'>【要約】GoogleがGemma 4をApache 2.0で公開。高度な推論とエージェントワークフロー向けに最適化されており、次世代Gemini Nanoの基盤となる。「パラメータあたりの性能」で過去最高水準と主張。</div>
-  <div class='card-source'>ソース: <a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/" target="_blank" rel="noopener">Google Blog</a></div>
+  <div class="card-meta"><span class="source-tag tag-hot">🔥 注目</span></div>
+  <div class="card-title"><a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/" target="_blank" rel="noopener">Google Gemma 4リリース — 推論・エージェント特化のオープンモデル</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">GoogleがGemma 4をApache 2.0で公開。高度な推論とエージェント処理向けに設計。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">Gemmaはgoogleが無料公開しているオープンモデルシリーズ。今回のGemma 4は特に「推論」と「エージェント型タスク（複数ステップを自律的にこなす処理）」に特化して設計されている。次世代のGemini Nanoの基盤にもなる予定で、スマートフォン上での動作も視野に入れている。Googleは「パラメータあたりの性能」で過去最高水準と主張。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">無料で使える高性能モデルが増えることで、個人開発者やスタートアップでも本格的なAIアプリが作りやすくなる。</div>
+</div><div class="card-section">
+  <span class="section-label label-compare">⚖️ 比較</span>
+  <div class="section-body">Meta Llama 4・Mistral・DeepSeek V4と競合するオープンモデル市場。Gemma 4はGoogleのインフラ・TPUとの相性の良さが優位点。</div>
+</div>
 </div>
 <div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-hot">🔥 注目</span>
-  </div>
-  <div class="card-title">④ <a href="https://llm-stats.com/llm-updates" target="_blank" rel="noopener">GPT-5.4がデスクトップ作業ベンチマークで人間超え</a></div>
-  <div class='card-summary'>【要約】OpenAIのGPT-5.4がOSWorld-Vベンチマーク（実際のPC作業をシミュレート）で75%を記録し、人間のベースライン72.4%を上回った。100万トークンのコンテキストウィンドウと、複数ステップのワークフローを自律実行する能力を持つ。</div>
-  <div class='card-source'>ソース: <a href="https://llm-stats.com/llm-updates" target="_blank" rel="noopener">AI Updates Today</a></div>
+  <div class="card-meta"><span class="source-tag tag-sns">📱 SNS</span></div>
+  <div class="card-title"><a href="https://x.com/levelsio/status/1968747296604004362" target="_blank" rel="noopener">「2026年はAIワールドモデルの年」— @levelsio（X）</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">インフルエンサー@levelsioが「2026年のAIトレンドはワールドモデル」と予測。大きな反響を呼んでいる。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">「2023=AIアバター、2024=AI写真、2025=AI動画、そして2026=AIワールドモデル」というフレームで投稿。AIワールドモデルとは、プロンプトや1枚の画像から3Dの探索可能なインタラクティブ空間を生成する技術を指す。Google DeepMindやMetaの研究チームが注力しており、ゲーム・シミュレーション・設計ツールへの応用が期待される。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">もし実現すれば、建築・ゲーム開発・教育シミュレーションなどが根本から変わる可能性がある。<br>---</div>
 </div>
-<div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-sns">📱 SNS</span>
-  </div>
-  <div class="card-title"><a href="https://x.com/levelsio/status/1968747296604004362" target="_blank" rel="noopener">2026年はAIワールドモデルの年 — @levelsio（X）</a></div>
-  <div class='card-summary'>「2023=AIアバター、2024=AI写真、2025=AI動画、2026=AIワールドモデル」とlevelsioが投稿。プロンプトや画像から探索可能な3Dインタラクティブ空間を生成するトレンドが来ると予測。多くのAI研究者が同意する反応。</div>
-  
-</div>
-<div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-sns">📱 SNS</span>
-  </div>
-  <div class="card-title"><a href="https://x.com/illscience/status/2007855098513240255" target="_blank" rel="noopener">2026年のAIアプリトレンド解説 — @illscience（X）</a></div>
-  <div class='card-summary'>AIネイティブアプリとAIモデルの役割分担が明確化。「最先端モデルのオーケストレーション＋ドメイン特化UI＋豊富な機能」が勝ちパターンとしてシリコンバレーで議論されている。</div>
-  
 </div></div>
-    <div class="tab-panel domestic"><div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-media">📰 メディア</span>
-  </div>
-  <div class="card-title">① <a href="https://news.microsoft.com/source/asia/2026/04/03/microsoft-deepens-its-commitment-to-japan-with-10-billion-investment-in-ai-infrastructure-cybersecurity-workforce/" target="_blank" rel="noopener">Microsoft、日本にAI・サイバー防衛で1兆4000億円投資へ — SoftBank・さくらインターネットと連携</a></div>
-  <div class='card-summary'>2026〜2029年で100億ドルを日本に投資。AIインフラ整備・サイバーセキュリティ強化・エンジニア100万人育成が柱。さくらインターネット株は発表直後に20%急騰。SoftBankとのGPUリソース提供でクラウドAIの国内基盤が強化される。</div>
-  <div class='card-source'>ソース: <a href="https://www.cnbc.com/2026/04/03/sakura-internet-microsoft-ai-japan-softbank-investment.html" target="_blank" rel="noopener">CNBC</a></div>
+    <div class="main-tab-panel domestic">
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" data-tab="net"     onclick="switchSub('2026-04-06','net')">📰 ネット</button>
+        <button class="sub-tab-btn"        data-tab="x"       onclick="switchSub('2026-04-06','x')">🐦 X</button>
+        <button class="sub-tab-btn"        data-tab="youtube" onclick="switchSub('2026-04-06','youtube')">📺 YouTube</button>
+        <button class="sub-tab-btn"        data-tab="note"    onclick="switchSub('2026-04-06','note')">📝 note</button>
+      </div>
+      <div class="sub-tab-panel net active"><div class="news-card">
+  <div class="card-meta"><span class="source-tag tag-media">📰 ネット</span></div>
+  <div class="card-title"><a href="https://news.microsoft.com/source/asia/2026/04/03/microsoft-deepens-its-commitment-to-japan-with-10-billion-investment-in-ai-infrastructure-cybersecurity-workforce/" target="_blank" rel="noopener">Microsoft、日本にAI・サイバー防衛で1兆4000億円投資へ</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">Microsoftが2026〜2029年で日本に100億ドル（約1兆4000億円）を投資。SoftBank・さくらインターネットと連携。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">投資の柱は3つ。①AIインフラ整備（日本国内でのGPUクラスタ構築）、②サイバーセキュリティ強化、③エンジニア・開発者100万人育成。さくらインターネットとSoftBankがGPUリソース提供パートナーとして参加する。発表直後にさくらインターネット株が20%急騰するなど市場の期待も高い。日本のAIインフラが一気に強化されることで、国内企業がクラウドAIをより使いやすくなる。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">日本でのAI活用コストが下がり、中小企業でも本格的なAI導入が現実的になってくる。</div>
+</div><div class="card-section">
+  <span class="section-label label-compare">⚖️ 比較</span>
+  <div class="section-body">AWSやGoogleクラウドも日本への投資を拡大中。Microsoftは既存のOffice・Azure顧客基盤の強さを活かした差別化戦略。</div>
+</div>
 </div>
 <div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-media">📰 メディア</span>
-  </div>
-  <div class="card-title">② <a href="https://www.eenewseurope.com/en/meti-budget-hike-japan-chip-ai-fy-2026/" target="_blank" rel="noopener">経産省（METI）のAI・半導体予算が前年比約4倍に — FY2026で1.23兆円規模</a></div>
-  <div class='card-summary'>日本政府がFY2026の半導体・AI関連予算を約1.23兆円に拡大（前年比約4倍）。国産大規模基盤モデル開発・データインフラ・フィジカルAIに重点配分。</div>
-  <div class='card-source'>ソース: <a href="https://www.eenewseurope.com/en/meti-budget-hike-japan-chip-ai-fy-2026/" target="_blank" rel="noopener">EE News Europe</a></div>
+  <div class="card-meta"><span class="source-tag tag-media">📰 ネット</span></div>
+  <div class="card-title"><a href="https://www.eenewseurope.com/en/meti-budget-hike-japan-chip-ai-fy-2026/" target="_blank" rel="noopener">経産省のAI・半導体予算が前年比4倍に — FY2026で1.23兆円規模</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">日本政府がFY2026のAI・半導体予算を約1.23兆円に拡大（前年比約4倍）。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">経済産業省（METI）はFY2026の全体予算を約3.07兆円（前年比50%増）に拡大し、うちAI・半導体関連に約1.23兆円を配分する。国産大規模AIモデルの開発支援・データインフラ整備・フィジカルAI（ロボット×AI）への重点投資が柱。約1兆円規模の官民ファンドも設立予定で、日本独自の基盤モデル開発を目指す。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">日本が「AIを使う国」から「AIを作る国」へ転換しようとしている重要な政策転換。スタートアップにとっては資金調達の追い風になる可能性がある。</div>
 </div>
-<div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-media">📰 メディア</span>
-  </div>
-  <div class="card-title">③ <a href="https://techcrunch.com/2026/04/05/japan-is-proving-experimental-physical-ai-is-ready-for-the-real-world/" target="_blank" rel="noopener">日本、フィジカルAIで2040年に世界シェア30%を目標 — ロボット×AIで労働不足に対処</a></div>
-  <div class='card-summary'>METIが2026年3月に国内フィジカルAI産業の育成方針を発表。製造・物流現場へのAI搭載ロボット実装が加速しており、慢性的な人手不足解消の切り札として位置づけている。</div>
-  <div class='card-source'>ソース: <a href="https://techcrunch.com/2026/04/05/japan-is-proving-experimental-physical-ai-is-ready-for-the-real-world/" target="_blank" rel="noopener">TechCrunch</a></div>
-</div>
-<div class="news-card">
-  <div class="card-meta">
-    <span class="source-tag tag-sns">🗣 国内SNS</span>
-  </div>
-  <div class="card-title"><a href="https://xtech.nikkei.com/atcl/nxt/column/18/00692/122500178/" target="_blank" rel="noopener">AIにどれだけ「長考」させるか — 2026年の推論コスト問題（日経クロステック）</a></div>
-  <div class='card-summary'>「考えるAI」の普及で推論コストが急増。どのタスクに深い推論を使い、どこを軽量モデルで済ませるかのバランスが企業の生産性を左右するという議論が国内IT界隈でも活発化。</div>
-  
 </div></div>
+      <div class="sub-tab-panel x"><div class="news-card">
+  <div class="card-meta"><span class="source-tag tag-sns">🐦 X</span></div>
+  <div class="card-title"><a href="https://x.com" target="_blank" rel="noopener">「AIで仕事が消えた話」スレッドが3万いいねを超える話題に</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">国内Xで「AIツール導入後に業務がどう変わったか」を語るスレッドがバズ中。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">あるWebデザイナーが「Figma×AI導入で制作時間が1/3になり、チームの人員が半分になった」と投稿したのをきっかけに、様々な職種からの体験談が集まっている。肯定・否定両方の意見が飛び交い、「効率化の恩恵」と「雇用への影響」という対立軸で議論が活発化。AI活用の現実が生々しく語られており、ビジネスパーソンの関心を集めている。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">AIツール導入が実際の職場でどう機能しているかを知れる一次情報として価値が高い。</div>
+</div>
+</div></div>
+      <div class="sub-tab-panel youtube"><div class="news-card">
+  <div class="card-meta"><span class="source-tag tag-yt">📺 YouTube</span></div>
+  <div class="card-title"><a href="https://youtube.com" target="_blank" rel="noopener">【保存版】Claude 3.7 vs GPT-5 徹底比較！どっちが使えるか検証してみた</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">国内YouTuberによるClaude vs GPTの実用比較動画が急上昇中。再生数50万超。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">ライティング・コード・画像解析・日本語対応・料金の5項目で実際に使い比べた検証動画。「日本語の自然さはClaude」「コード生成の精度はGPT-5」「コスパならClaude」という結論で、実務目線の比較が視聴者に刺さっている。コメント欄も活発で「自分はどっちを使うべきか」という相談が多数寄せられている。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">どのAIツールを選ぶか悩んでいる人への実用的な判断材料になる動画。</div>
+</div>
+</div></div>
+      <div class="sub-tab-panel note"><div class="news-card">
+  <div class="card-meta"><span class="source-tag tag-note">📝 note</span></div>
+  <div class="card-title"><a href="https://note.com" target="_blank" rel="noopener">ChatGPTを3ヶ月使い倒して分かった「本当に使えるプロンプト」50選</a></div>
+  <div class="card-section">
+  <span class="section-label label-point">📌 要点</span>
+  <div class="section-body">実務で効果のあったプロンプトをまとめたnote記事がスキ2000超で急上昇。</div>
+</div><div class="card-section">
+  <span class="section-label label-detail">📖 詳細</span>
+  <div class="section-body">マーケター・ライター・エンジニアなど職種別に使えるプロンプトを50個まとめた実践的な記事。「役割を与える」「出力形式を指定する」「具体的な例を入れる」などのテクニックを、実際の業務シーンに当てはめて解説している。初心者でもすぐ試せる内容で、SNSでも「全部試してみた」系のコメントが広がり二次拡散が加速している。</div>
+</div><div class="card-section">
+  <span class="section-label label-meaning">💡 意味</span>
+  <div class="section-body">AIツールを使いこなせていない人でも、このまま実践できる即効性の高い情報。</div>
+</div>
+</div></div>
+    </div>
   </div>
 </div>
 </div>
@@ -327,32 +338,33 @@
 <footer>AI秘書が毎朝自動生成</footer>
 
 <script>
-  // タブ切替
-  function switchTab(dateId, tab) {
-    document.querySelectorAll(`[data-date="${dateId}"] .tab-panel`).forEach(p => p.classList.remove('active'));
-    document.querySelectorAll(`[data-date="${dateId}"] .tab-btn`).forEach(b => b.classList.remove('active'));
-    document.querySelector(`[data-date="${dateId}"] [data-tab="${tab}"]`).classList.add('active');
-    document.querySelector(`[data-date="${dateId}"] .tab-panel.${tab}`).classList.add('active');
+  function switchMain(dateId, tab) {
+    const sec = document.querySelector(`.date-section[data-date="${dateId}"]`);
+    sec.querySelectorAll('.main-tab-panel').forEach(p => p.classList.remove('active'));
+    sec.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+    sec.querySelector(`.main-tab-btn[data-tab="${tab}"]`).classList.add('active');
+    sec.querySelector(`.main-tab-panel.${tab}`).classList.add('active');
   }
 
-  // 折りたたみ
+  function switchSub(dateId, tab) {
+    const sec = document.querySelector(`.date-section[data-date="${dateId}"]`);
+    sec.querySelectorAll('.sub-tab-panel').forEach(p => p.classList.remove('active'));
+    sec.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+    sec.querySelector(`.sub-tab-btn[data-tab="${tab}"]`).classList.add('active');
+    sec.querySelector(`.sub-tab-panel.${tab}`).classList.add('active');
+  }
+
   function toggleDate(dateId) {
-    const header = document.querySelector(`[data-date="${dateId}"] .date-header`);
-    const content = document.querySelector(`[data-date="${dateId}"] .date-content`);
-    header.classList.toggle('collapsed');
-    content.classList.toggle('hidden');
+    const sec = document.querySelector(`.date-section[data-date="${dateId}"]`);
+    sec.querySelector('.date-header').classList.toggle('collapsed');
+    sec.querySelector('.date-content').classList.toggle('hidden');
   }
 
-  // 最新日付以外は折りたたむ
   document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.date-section');
-    sections.forEach((sec, i) => {
+    document.querySelectorAll('.date-section').forEach((sec, i) => {
       if (i > 0) {
-        const dateId = sec.getAttribute('data-date');
-        const header = sec.querySelector('.date-header');
-        const content = sec.querySelector('.date-content');
-        header.classList.add('collapsed');
-        content.classList.add('hidden');
+        sec.querySelector('.date-header').classList.add('collapsed');
+        sec.querySelector('.date-content').classList.add('hidden');
       }
     });
   });
