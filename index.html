@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI日報</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #16213e 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 20px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      letter-spacing: 0.05em;
+    }
+
+    header .badge {
+      background: #3182ce;
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 16px 80px;
+    }
+
+    /* 日付セクション */
+    .date-section {
+      margin-top: 24px;
+    }
+
+    .date-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 14px 16px;
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      margin-bottom: 4px;
+      user-select: none;
+    }
+
+    .date-header:hover { background: #1e2433; }
+
+    .date-header .date-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #90cdf4;
+      flex: 1;
+    }
+
+    .date-header .toggle-icon {
+      color: #718096;
+      font-size: 0.85rem;
+      transition: transform 0.2s;
+    }
+
+    .date-header.collapsed .toggle-icon { transform: rotate(-90deg); }
+
+    .date-header .count-badge {
+      background: #2d3748;
+      color: #a0aec0;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+
+    .date-content { display: block; }
+    .date-content.hidden { display: none; }
+
+    /* タブ */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding: 12px 0 8px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 9px 4px;
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 8px;
+      color: #718096;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .tab-btn.active {
+      background: #2b4a7a;
+      border-color: #3182ce;
+      color: #90cdf4;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ニュースカード */
+    .news-card {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      transition: border-color 0.15s;
+    }
+
+    .news-card:hover { border-color: #4a5568; }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .source-tag {
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-weight: 600;
+    }
+
+    .tag-media  { background: #1a365d; color: #90cdf4; }
+    .tag-sns    { background: #1c3a2a; color: #68d391; }
+    .tag-hot    { background: #3d1a1a; color: #fc8181; }
+    .tag-tech   { background: #2d1f4a; color: #b794f4; }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .card-title a {
+      color: #90cdf4;
+      text-decoration: none;
+    }
+
+    .card-title a:hover { text-decoration: underline; }
+
+    .card-summary {
+      font-size: 0.82rem;
+      color: #a0aec0;
+      line-height: 1.65;
+      border-left: 2px solid #2d3748;
+      padding-left: 10px;
+    }
+
+    .card-source {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: #4a5568;
+    }
+
+    .card-source a {
+      color: #4a5568;
+      text-decoration: none;
+    }
+
+    .card-source a:hover { color: #718096; }
+
+    /* カテゴリラベル */
+    .category-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #4a5568;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 16px 0 8px;
+    }
+
+    /* 空メッセージ */
+    .empty { color: #4a5568; font-size: 0.85rem; padding: 20px 0; text-align: center; }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #4a5568;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>📰 AI日報</h1>
+    <span class="badge">by AI秘書</span>
+  </div>
+</header>
+
+<div class="container" id="news-container">
+  <!-- ニュースはPythonスクリプトによってここに挿入されます -->
+<div class="date-section" data-date="2026-04-06">
+  <div class="date-header" onclick="toggleDate('2026-04-06')">
+    <span class="date-text">📅 2026-04-06</span>
+    <span class="count-badge">10件</span>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="date-content">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="overseas" data-date="2026-04-06" onclick="switchTab('2026-04-06','overseas')">🌏 海外</button>
+      <button class="tab-btn" data-tab="domestic" data-date="2026-04-06" onclick="switchTab('2026-04-06','domestic')">🇯🇵 国内</button>
+    </div>
+    <div class="tab-panel overseas active"><div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-hot">🔥 注目</span>
+  </div>
+  <div class="card-title">① <a href="https://blog.mean.ceo/new-ai-model-releases-news-april-2026/" target="_blank" rel="noopener">DeepSeek V4リリース — 1兆パラメータMoEモデルをオープンウェイトで公開</a></div>
+  <div class='card-summary'>【要約】DeepSeekが1兆パラメータのMixture-of-Experts（MoE）モデルをApache 2.0ライセンスで完全公開。米国フロンティアモデル（Claude Opus 4.6等）と競合する性能を持ちながら、学習コストはわずか約520万ドルと推定される。中国勢の低コスト高性能モデルが再びAI業界に衝撃を与えた。</div>
+  <div class='card-source'>ソース: <a href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">llm-stats.com</a></div>
+</div>
+<div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-hot">🔥 注目</span>
+  </div>
+  <div class="card-title">② <a href="https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/" target="_blank" rel="noopener">Microsoftが独自の3つの基盤モデルを発表 — テキスト・音声・画像を統合</a></div>
+  <div class='card-summary'>【要約】MicrosoftがOpenAIへの依存を減らす形で、テキスト・音声・画像を生成できる独自基盤モデル3種を発表。これによりMicrosoftはAIモデル開発においてOpenAI・Google・Anthropicと直接競合する立場になった。</div>
+  <div class='card-source'>ソース: <a href="https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/" target="_blank" rel="noopener">TechCrunch</a></div>
+</div>
+<div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-hot">🔥 注目</span>
+  </div>
+  <div class="card-title">③ <a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/" target="_blank" rel="noopener">Google Gemma 4リリース — 推論・エージェント特化のオープンモデル</a></div>
+  <div class='card-summary'>【要約】GoogleがGemma 4をApache 2.0で公開。高度な推論とエージェントワークフロー向けに最適化されており、次世代Gemini Nanoの基盤となる。「パラメータあたりの性能」で過去最高水準と主張。</div>
+  <div class='card-source'>ソース: <a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/" target="_blank" rel="noopener">Google Blog</a></div>
+</div>
+<div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-hot">🔥 注目</span>
+  </div>
+  <div class="card-title">④ <a href="https://llm-stats.com/llm-updates" target="_blank" rel="noopener">GPT-5.4がデスクトップ作業ベンチマークで人間超え</a></div>
+  <div class='card-summary'>【要約】OpenAIのGPT-5.4がOSWorld-Vベンチマーク（実際のPC作業をシミュレート）で75%を記録し、人間のベースライン72.4%を上回った。100万トークンのコンテキストウィンドウと、複数ステップのワークフローを自律実行する能力を持つ。</div>
+  <div class='card-source'>ソース: <a href="https://llm-stats.com/llm-updates" target="_blank" rel="noopener">AI Updates Today</a></div>
+</div>
+<div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-sns">📱 SNS</span>
+  </div>
+  <div class="card-title"><a href="https://x.com/levelsio/status/1968747296604004362" target="_blank" rel="noopener">2026年はAIワールドモデルの年 — @levelsio（X）</a></div>
+  <div class='card-summary'>「2023=AIアバター、2024=AI写真、2025=AI動画、2026=AIワールドモデル」とlevelsioが投稿。プロンプトや画像から探索可能な3Dインタラクティブ空間を生成するトレンドが来ると予測。多くのAI研究者が同意する反応。</div>
+  
+</div>
+<div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-sns">📱 SNS</span>
+  </div>
+  <div class="card-title"><a href="https://x.com/illscience/status/2007855098513240255" target="_blank" rel="noopener">2026年のAIアプリトレンド解説 — @illscience（X）</a></div>
+  <div class='card-summary'>AIネイティブアプリとAIモデルの役割分担が明確化。「最先端モデルのオーケストレーション＋ドメイン特化UI＋豊富な機能」が勝ちパターンとしてシリコンバレーで議論されている。</div>
+  
+</div></div>
+    <div class="tab-panel domestic"><div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-media">📰 メディア</span>
+  </div>
+  <div class="card-title">① <a href="https://news.microsoft.com/source/asia/2026/04/03/microsoft-deepens-its-commitment-to-japan-with-10-billion-investment-in-ai-infrastructure-cybersecurity-workforce/" target="_blank" rel="noopener">Microsoft、日本にAI・サイバー防衛で1兆4000億円投資へ — SoftBank・さくらインターネットと連携</a></div>
+  <div class='card-summary'>2026〜2029年で100億ドルを日本に投資。AIインフラ整備・サイバーセキュリティ強化・エンジニア100万人育成が柱。さくらインターネット株は発表直後に20%急騰。SoftBankとのGPUリソース提供でクラウドAIの国内基盤が強化される。</div>
+  <div class='card-source'>ソース: <a href="https://www.cnbc.com/2026/04/03/sakura-internet-microsoft-ai-japan-softbank-investment.html" target="_blank" rel="noopener">CNBC</a></div>
+</div>
+<div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-media">📰 メディア</span>
+  </div>
+  <div class="card-title">② <a href="https://www.eenewseurope.com/en/meti-budget-hike-japan-chip-ai-fy-2026/" target="_blank" rel="noopener">経産省（METI）のAI・半導体予算が前年比約4倍に — FY2026で1.23兆円規模</a></div>
+  <div class='card-summary'>日本政府がFY2026の半導体・AI関連予算を約1.23兆円に拡大（前年比約4倍）。国産大規模基盤モデル開発・データインフラ・フィジカルAIに重点配分。</div>
+  <div class='card-source'>ソース: <a href="https://www.eenewseurope.com/en/meti-budget-hike-japan-chip-ai-fy-2026/" target="_blank" rel="noopener">EE News Europe</a></div>
+</div>
+<div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-media">📰 メディア</span>
+  </div>
+  <div class="card-title">③ <a href="https://techcrunch.com/2026/04/05/japan-is-proving-experimental-physical-ai-is-ready-for-the-real-world/" target="_blank" rel="noopener">日本、フィジカルAIで2040年に世界シェア30%を目標 — ロボット×AIで労働不足に対処</a></div>
+  <div class='card-summary'>METIが2026年3月に国内フィジカルAI産業の育成方針を発表。製造・物流現場へのAI搭載ロボット実装が加速しており、慢性的な人手不足解消の切り札として位置づけている。</div>
+  <div class='card-source'>ソース: <a href="https://techcrunch.com/2026/04/05/japan-is-proving-experimental-physical-ai-is-ready-for-the-real-world/" target="_blank" rel="noopener">TechCrunch</a></div>
+</div>
+<div class="news-card">
+  <div class="card-meta">
+    <span class="source-tag tag-sns">🗣 国内SNS</span>
+  </div>
+  <div class="card-title"><a href="https://xtech.nikkei.com/atcl/nxt/column/18/00692/122500178/" target="_blank" rel="noopener">AIにどれだけ「長考」させるか — 2026年の推論コスト問題（日経クロステック）</a></div>
+  <div class='card-summary'>「考えるAI」の普及で推論コストが急増。どのタスクに深い推論を使い、どこを軽量モデルで済ませるかのバランスが企業の生産性を左右するという議論が国内IT界隈でも活発化。</div>
+  
+</div></div>
+  </div>
+</div>
+</div>
+
+<footer>AI秘書が毎朝自動生成</footer>
+
+<script>
+  // タブ切替
+  function switchTab(dateId, tab) {
+    document.querySelectorAll(`[data-date="${dateId}"] .tab-panel`).forEach(p => p.classList.remove('active'));
+    document.querySelectorAll(`[data-date="${dateId}"] .tab-btn`).forEach(b => b.classList.remove('active'));
+    document.querySelector(`[data-date="${dateId}"] [data-tab="${tab}"]`).classList.add('active');
+    document.querySelector(`[data-date="${dateId}"] .tab-panel.${tab}`).classList.add('active');
+  }
+
+  // 折りたたみ
+  function toggleDate(dateId) {
+    const header = document.querySelector(`[data-date="${dateId}"] .date-header`);
+    const content = document.querySelector(`[data-date="${dateId}"] .date-content`);
+    header.classList.toggle('collapsed');
+    content.classList.toggle('hidden');
+  }
+
+  // 最新日付以外は折りたたむ
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('.date-section');
+    sections.forEach((sec, i) => {
+      if (i > 0) {
+        const dateId = sec.getAttribute('data-date');
+        const header = sec.querySelector('.date-header');
+        const content = sec.querySelector('.date-content');
+        header.classList.add('collapsed');
+        content.classList.add('hidden');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
