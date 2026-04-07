@@ -987,5 +987,51 @@
   </div>
 </div>
 </div>
-</body>
+<script>
+// 日付セクションの折りたたみ
+function toggleDate(date) {
+  var header = document.querySelector('.date-header[onclick*="' + date + '"]');
+  var content = header ? header.nextElementSibling : null;
+  if (!header || !content) return;
+  header.classList.toggle('collapsed');
+  content.classList.toggle('hidden');
+}
+
+// 海外/国内メインタブ切替
+function switchMain(date, tab) {
+  var section = document.querySelector('[data-date="' + date + '"]');
+  if (!section) return;
+  section.querySelectorAll('.main-tab-btn').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  section.querySelectorAll('.main-tab-panel').forEach(function(p) {
+    p.classList.toggle('active', p.classList.contains(tab));
+  });
+}
+
+// 国内サブタブ切替
+function switchSub(date, tab) {
+  var section = document.querySelector('[data-date="' + date + '"]');
+  if (!section) return;
+  section.querySelectorAll('.sub-tab-btn').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  section.querySelectorAll('.sub-tab-panel').forEach(function(p) {
+    p.classList.toggle('active', p.classList.contains(tab));
+  });
+}
+
+// 初期化: 最新以外を折りたたむ
+document.addEventListener('DOMContentLoaded', function() {
+  var sections = document.querySelectorAll('.date-section');
+  sections.forEach(function(sec, i) {
+    if (i > 0) {
+      var header = sec.querySelector('.date-header');
+      var content = sec.querySelector('.date-content');
+      if (header) header.classList.add('collapsed');
+      if (content) content.classList.add('hidden');
+    }
+  });
+});
+</script></body>
 </html>
